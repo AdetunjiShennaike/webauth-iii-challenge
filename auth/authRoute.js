@@ -28,13 +28,15 @@ function makeToken(user) {
 
 
 router.post('/register', (req, res) => {
-  const user = req.body
+  const { username, password } = req.body
+  const user = { username, password }
   
   const hash = bcrypt.hashSync(user.password, 8) 
   user.password = hash
 
   Users
-  .insert( newUser => {
+  .insert(user)
+  .then( newUser => {
     res.status(201).json(newUser)
   })
   .catch( err => {
