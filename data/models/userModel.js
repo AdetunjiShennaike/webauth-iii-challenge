@@ -16,9 +16,10 @@ function getById(id) {
   .where('id', id)
 }
 
-function getByUser(user) {
+function getByUser(username) {
   return db('users')
-  .where('username', user)
+  .where({ username })
+  .first()
 }
 
 function insert(user) {

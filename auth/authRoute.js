@@ -18,7 +18,7 @@ function makeToken(user) {
     username: user.username,
     roles: ['standard', 'student']
   }
-  const secret = process.env.secret
+  const secret = process.env.SECRET
   const options = { 
     expiresIn: '20h'
   }
@@ -48,7 +48,7 @@ router.post('/login', (req, res) => {
   const { username, password } = req.body
 
   Users
-  .getByUser({ username })
+  .getByUser( username )
   .then( user => {
     if ( user && bcrypt.compareSync(password, user.password)) {
       const token = makeToken(user)
@@ -62,6 +62,7 @@ router.post('/login', (req, res) => {
     }
   })
   .catch( err => {
+    // console.log(err, username)
     return sendError(500, err, res);
   })
 
